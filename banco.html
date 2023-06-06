@@ -1,0 +1,157 @@
+<html>
+
+<head>
+
+	<script>
+
+		var saldo = 100.5; //Float
+		var nome_do_usuario = prompt("Digite seu nome");
+		alert("Olá " + nome_do_usuario + " é um prazer ter você por aqui");
+		var senha = '3589';
+
+		function inicio() {
+
+			var escolha = parseInt(prompt('Selecione uma opção 1.) Saldo 2.) Extrato 3.) Saque 4.) Depósito 5.) Transferência 6.) Sair'));
+
+			switch (escolha) {
+				case 1:
+					alert(ver_saldo());
+					break;
+				case 2:
+					alert(ver_extrato());
+					break;
+				case 3:
+					alert(fazer_saque());
+					break;
+				case 4:
+					alert(fazer_deposito());
+					break;
+				case 5:
+					alert(fazer_transferencia());
+					break;
+				case 6:
+					alert(sair());
+					break;
+				default:
+					alert(erro());
+					break;
+			}
+
+		}
+
+		function validarSenha() {
+			var senhaInformada = prompt('Digite a senha:');
+			if (senhaInformada === senha) {
+				return true;
+			} else {
+				alert('Senha incorreta. Operação não autorizada.');
+				return false;
+			}
+		}
+
+
+		function ver_saldo() {
+			if (validarSenha()); {
+				alert('Seu salário atual é: ' + saldo);
+				inicio();
+			}
+		}
+
+
+		function fazer_deposito() {
+			if (validarSenha()); {
+				var deposito = parseFloat(prompt('Qual o valor para depósito?'));
+
+				if (isNaN(deposito) || deposito <= 0) {
+					alert('Operação não autorizada');
+					fazer_deposito();
+				} else {
+					saldo += deposito;
+					ver_saldo();
+				}
+			}
+		}
+
+		function fazer_saque() {
+			if (validarSenha()); {
+				var saque = parseFloat(prompt('Qual o valor para saque?'));
+			}
+			if (isNaN(saque) || saque === '') {
+				alert('Por favor, informe um número:');
+				fazer_saque();
+			} else {
+				if (saque <= 0) {
+		            			alert('Operação não autorizada. ')
+				}
+				else if (saque > saldo) {
+					alert('Operação não autorizada. Saldo insuficiente.');
+				} else {
+					saldo -= saque;
+					ver_saldo();
+				}
+			}
+		}
+
+		function ver_extrato() {
+			if (validarSenha()); {
+				alert('Últimas compras');
+				alert('Uber *uber *trip São Paulo   Bra -R$10,95');
+				alert('Supermercado Violeta -R$120,05');
+				alert('Outback Restaurant -R$75.50');
+				alert('carrefour -R$15,00');
+
+				ver_saldo();
+			}
+		}
+
+		function fazer_transferencia() {
+			if (validarSenha()); {
+				var valorTransferencia = parseFloat(prompt('Qual o valor da transferência?'));
+				if (isNaN(valorTransferencia) || valorTransferencia === '') {
+					alert('Por favor, informe um valor válido para a transferência:');
+					fazer_transferencia();
+				} else {
+					if (valorTransferencia <= 0) {
+						alert('Operação não autorizada. Valor inválido.');
+					} else if (valorTransferencia > saldo) {
+						alert('Operação não autorizada. Saldo insuficiente.');
+					} else {
+						var contaDestino = prompt('Informe o número da conta de destino:');
+						if (contaDestino === '') {
+							alert('Por favor, informe o número da conta de destino:');
+							fazer_transferencia();
+						} else {
+
+							alert(`Transferência de R$${valorTransferencia} para a conta ${contaDestino} realizada com sucesso.`);
+							saldo -= valorTransferencia;
+							ver_saldo();
+						}
+					}
+				}
+			}
+		}
+		function erro() {
+			alert('Por favor, informe um número entre 1 e 6');
+			inicio();
+		}
+
+		function sair() {
+			var confirma = confirm('Você deseja sair?');
+			if (confirma) {
+				alert(nome_do_usuario + " foi um prazer ter você por aqui")
+				window.close();
+			} else {
+				inicio();
+			}
+		}
+
+
+
+		inicio();
+	</script>
+</head>
+
+<body>
+</body>
+
+</html>
